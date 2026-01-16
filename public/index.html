@@ -290,13 +290,10 @@
     locationInput.addEventListener('input', (e) => {
       const searchTerm = e.target.value.toLowerCase().trim();
       
-      if (searchTerm.length === 0) {
-        locationDropdown.classList.remove('show');
-        return;
       }
       
       // Filter locations based on search term
-      const filteredLocations = allLocations.filter(loc =>
+      const filteredLocations = searchTerm.length === 0 ? allLocations : allLocations.filter(loc => loc.toLowerCase().includes(searchTerm))
         loc.toLowerCase().includes(searchTerm)
       ).slice(0, 50); // Show max 50 results
       
