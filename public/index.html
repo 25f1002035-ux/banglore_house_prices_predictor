@@ -261,7 +261,7 @@
     // Load locations on page load
     async function loadLocations() {
       try {
-        const response = await fetch(`${API_BASE}/locations`);
+        const response = await fetch(`$/locations.jsonns`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
