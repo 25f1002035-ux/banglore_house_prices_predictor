@@ -1,411 +1,147 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bangalore House Prices Predictor</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-    
-    .container {
-      background: white;
-      border-radius: 20px;
-      padding: 40px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      max-width: 500px;
-      width: 100%;
-    }
-    
-    h1 {
-      color: #333;
-      margin-bottom: 10px;
-      text-align: center;
-      font-size: 28px;
-    }
-    
-    .subtitle {
-      text-align: center;
-      color: #666;
-      margin-bottom: 30px;
-      font-size: 14px;
-    }
-    
-    .form-group {
-      margin-bottom: 20px;
-      position: relative;
-    }
-    
-    label {
-      display: block;
-      margin-bottom: 8px;
-      color: #333;
-      font-weight: 600;
-      font-size: 14px;
-    }
-    
-    input, select {
-      width: 100%;
-      padding: 12px;
-      border: 2px solid #e0e0e0;
-      border-radius: 8px;
-      font-size: 14px;
-      transition: border-color 0.3s;
-      font-family: inherit;
-    }
-    
-    input:focus, select:focus {
-      outline: none;
-      border-color: #667eea;
-    }
-    
-    .dropdown-list {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: white;
-      border: 2px solid #667eea;
-      border-top: none;
-      border-radius: 0 0 8px 8px;
-      max-height: 300px;
-      overflow-y: auto;
-      z-index: 1000;
-      display: none;
-      margin-top: -2px;
-    }
-    
-    .dropdown-list.show {
-      display: block;
-    }
-    
-    .dropdown-item {
-      padding: 10px 12px;
-      cursor: pointer;
-      border-bottom: 1px solid #f0f0f0;
-      font-size: 14px;
-    }
-    
-    .dropdown-item:hover {
-      background-color: #f5f5f5;
-    }
-    
-    .dropdown-item.selected {
-      background-color: #667eea;
-      color: white;
-    }
-    
-    button {
-      width: 100%;
-      padding: 14px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      margin-top: 20px;
-    }
-    
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
-    }
-    
-    button:active {
-      transform: translateY(0);
-    }
-    
-    .result {
-      margin-top: 30px;
-      padding: 20px;
-      background: #f5f5f5;
-      border-radius: 12px;
-      border-left: 5px solid #667eea;
-      display: none;
-    }
-    
-    .result.show {
-      display: block;
-      animation: slideIn 0.3s ease;
-    }
-    
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    .result-label {
-      color: #666;
-      font-size: 13px;
-      margin-bottom: 5px;
-    }
-    
-    .result-value {
-      font-size: 28px;
-      font-weight: 700;
-      color: #667eea;
-    }
-    
-    .loading {
-      display: none;
-      text-align: center;
-      color: #667eea;
-      font-size: 14px;
-    }
-    
-    .loading.show {
-      display: block;
-    }
-    
-    .error {
-      background-color: #fee;
-      border-color: #fcc;
-      color: #c33;
-      margin-top: 15px;
-      padding: 12px;
-      border-radius: 8px;
-      display: none;
-      font-size: 13px;
-      border: 1px solid #fcc;
-    }
-    
-    .error.show {
-      display: block;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bangalore House Prices Predictor</title>
+<style>
+body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; margin: 0; padding: 20px; }
+.container { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 500px; width: 100%; }
+h1 { color: #333; text-align: center; margin: 0 0 10px 0; font-size: 28px; }
+.subtitle { text-align: center; color: #666; margin: 0 0 30px 0; font-size: 14px; }
+.form-group { margin-bottom: 20px; position: relative; }
+label { display: block; margin-bottom: 8px; color: #333; font-weight: 600; font-size: 14px; }
+input, select { width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; box-sizing: border-box; }
+input:focus, select:focus { outline: none; border-color: #667eea; }
+.dropdown { position: absolute; top: 100%; left: 0; right: 0; background: white; border: 2px solid #667eea; border-top: none; max-height: 250px; overflow-y: auto; display: none; z-index: 1000; }
+.dropdown.show { display: block; }
+.dropdown-item { padding: 10px 12px; cursor: pointer; border-bottom: 1px solid #f0f0f0; }
+.dropdown-item:hover { background-color: #f5f5f5; }
+button { width: 100%; padding: 14px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 20px; }
+button:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4); }
+.result { margin-top: 30px; padding: 20px; background: #f5f5f5; border-radius: 12px; border-left: 5px solid #667eea; display: none; }
+.result.show { display: block; }
+.result-value { font-size: 28px; font-weight: 700; color: #667eea; }
+.error { background-color: #fee; border: 1px solid #fcc; color: #c33; padding: 12px; border-radius: 8px; display: none; margin-top: 15px; }
+.error.show { display: block; }
+</style>
 </head>
 <body>
-  <div class="container">
-    <h1>🏠 House Price Predictor</h1>
-    <p class="subtitle">Get estimated price for Bangalore properties</p>
-    
-    <form id="predictionForm">
-      <div class="form-group">
-        <label for="location">Location</label>
-        <input type="text" id="location" placeholder="Search location..." autocomplete="off" required>
-        <div class="dropdown-list" id="locationDropdown"></div>
-      </div>
-      
-      <div class="form-group">
-        <label for="sqft">Area (Sq Ft)</label>
-        <input type="number" id="sqft" placeholder="e.g., 1500" required min="0" step="0.01">
-      </div>
-      
-      <div class="form-group">
-        <label for="bhk">BHK (Bedrooms)</label>
-        <select id="bhk" required>
-          <option value="">Select BHK...</option>
-          <option value="1">1 BHK</option>
-          <option value="2">2 BHK</option>
-          <option value="3">3 BHK</option>
-          <option value="4">4 BHK</option>
-          <option value="5">5 BHK</option>
-        </select>
-      </div>
-      
-      <div class="form-group">
-        <label for="bath">Bathrooms</label>
-        <select id="bath" required>
-          <option value="">Select bathrooms...</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-        </select>
-      </div>
-      
-      <button type="submit">Predict Price</button>
-    </form>
-    
-    <div class="loading" id="loading">Loading...</div>
-    
-    <div class="result" id="result">
-      <div class="result-label">Estimated Price</div>
-      <div class="result-value" id="resultValue"></div>
-      <div style="margin-top: 15px; font-size: 12px; color: #999;">
-        <p><strong>Details:</strong></p>
-        <p id="resultDetails"></p>
-      </div>
-    </div>
-    
-    <div class="error" id="error"></div>
-  </div>
+<div class="container">
+<h1>🏠 House Price Predictor</h1>
+<p class="subtitle">Get estimated price for Bangalore properties</p>
+
+<form id="form" onsubmit="predictPrice(event)">
+<div class="form-group">
+<label>Location</label>
+<input type="text" id="location" placeholder="Type location..." autocomplete="off" required>
+<div class="dropdown" id="dropdown"></div>
+</div>
+
+<div class="form-group">
+<label>Area (Sq Ft)</label>
+<input type="number" id="sqft" placeholder="e.g., 1500" required min="0">
+</div>
+
+<div class="form-group">
+<label>BHK (Bedrooms)</label>
+<select id="bhk" required>
+<option value="">Select BHK...</option>
+<option value="1">1 BHK</option>
+<option value="2">2 BHK</option>
+<option value="3">3 BHK</option>
+<option value="4">4 BHK</option>
+<option value="5">5 BHK</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Bathrooms</label>
+<select id="bath" required>
+<option value="">Select bathrooms...</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+</select>
+</div>
+
+<button type="submit">Predict Price</button>
+</form>
+
+<div class="result" id="result">
+<div>Estimated Price:</div>
+<div class="result-value" id="price"></div>
+<div id="details" style="margin-top: 15px; font-size: 12px; color: #666;"></div>
+</div>
+
+<div class="error" id="error"></div>
+</div>
+
+<script>
+const LOCATIONS = ['1st block jayanagar', '1st phase jp nagar', '2nd phase judicial layout', '5th block hbr layout', 'aecs layout', 'abbigere', 'akshaya nagar', 'ambalipura', 'ambedkar nagar', 'amruthahalli', 'anandapura', 'ananth nagar', 'anekal', 'anjanapura', 'arekere', 'attibele', 'beml layout', 'btm layout', 'banashankari', 'bannerghatta', 'basavangudi', 'begur', 'bellandur', 'benson town', 'bharathi nagar', 'billekahalli', 'bommanahalli', 'bommasandra', 'brookfield', 'cvramanangar', 'chamrajpet', 'chandapura', 'chikkalasandra', 'cooke town', 'cunningham road', 'dasanapura', 'devanahalli', 'domlur', 'dommasandra', 'electronic city', 'frazer town', 'gm palaya', 'giri nagar', 'gottigere', 'gubbalala', 'gunjur', 'hal 2nd stage', 'hbr layout', 'hsr layout', 'haralur road', 'hebbal', 'hegde nagar', 'hennur', 'horamavu', 'hosa road', 'hulimavu', 'isro layout', 'iblur village', 'indiranagar', 'jp nagar', 'jakkur', 'jalahalli', 'jigani', 'judicial layout', 'kr puram', 'kadubeesanahalli', 'kadugodi', 'kaggadasapura', 'kaikondrahalli', 'kalena agrahara', 'kalyan nagar', 'kambipura', 'kammanahalli', 'kammasandra', 'kanakapura', 'kanakpura road', 'kannamangala', 'karuna nagar', 'kasavanhalli', 'kasturi nagar', 'kaval byrasandra', 'kodichikkanahalli', 'koramangala', 'kundalahalli', 'lb shastri nagar', 'laggere', 'magadi road', 'mahadevpura', 'mahalakshmi layout', 'malleshwaram', 'marathahalli', 'marsur', 'mico layout', 'munnekollal', 'mysore road', 'nagarbhavi', 'nagasandra', 'nagavara', 'narayanapura', 'neeladri nagar', 'nehru nagar', 'old airport road', 'old madras road', 'padmanabhanagar', 'pai layout', 'panathur', 'parappana agrahara', 'pattandur agrahara', 'prithvi layout', 'r.t. nagar', 'rachenahalli', 'raja rajeshwari nagar', 'rajaji nagar', 'ramamurthy nagar', 'sahakara nagar', 'sanjay nagar', 'sarakki nagar', 'sarjapur', 'sarjapur road', 'shampura', 'shivaji nagar', 'singasandra', 'somasundara palya', 'sonnenahalli', 'subramanyapura', 'thanisandra', 'thubarahalli', 'tumkur road', 'ulsoor', 'uttarahalli', 'varthur', 'vasanthapura', 'vidyaranyapura', 'vijayanagar', 'whitefield', 'yelachenahalli', 'yelahanka', 'yeshwanthpur'];
+
+let selectedLocation = '';
+
+const locationInput = document.getElementById('location');
+const dropdown = document.getElementById('dropdown');
+
+locationInput.addEventListener('input', (e) => {
+  const val = e.target.value.toLowerCase().trim();
+  const filtered = LOCATIONS.filter(l => l.includes(val)).slice(0, 50);
   
-  <script>
-    const API_BASE = 'http://127.0.0.1:5000';    let selectedLocation = '';
-    
-    // Load locations on page load
-    async function loadLocations() {
-      try {
-        const response = await fetchfetch(`${API_BASE}/get_location_names`)n');
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        
-        console.log('Locations response:', data);
-        
-        allLocations = Array.isArray(data.locations) ? data.locations : [];
-        
-        if (allLocations.length === 0) {
-          console.warn('No locations received from API');
-          showError('No locations available');
-          return;
-        }
-        
-        console.log(`Loaded ${allLocations.length} locations successfully`);
-      } catch (error) {
-        console.error('Error loading locations:', error);
-        showError('Failed to load locations: ' + error.message);
-      }
-    }
-    
-    // Location input autocomplete
-    const locationInput = document.getElementById('location');
-    const locationDropdown = document.getElementById('locationDropdown');
-    
-    locationInput.addEventListener('input', (e) => {
-      const searchTerm = e.target.value.toLowerCase().trim();
-      
-      }
-      
-      // Filter locations based on search term
-      const filteredLocations = searchTerm.length === 0 ? allLocations : allLocations.filter(loc => loc.toLowerCase().includes(searchTerm))
-        loc.toLowerCase().includes(searchTerm)
-      ).slice(0, 50); // Show max 50 results
-      
-      // Display dropdown
-      if (filteredLocations.length > 0) {
-        locationDropdown.innerHTML = filteredLocations
-          .map((loc, index) => `
-            <div class="dropdown-item" data-location="${loc}">
-              ${loc.charAt(0).toUpperCase() + loc.slice(1)}
-            </div>
-          `)
-          .join('');
-        
-        locationDropdown.classList.add('show');
-        
-        // Add click handlers
-        document.querySelectorAll('.dropdown-item').forEach(item => {
-          item.addEventListener('click', () => {
-            selectedLocation = item.dataset.location;
-            locationInput.value = item.textContent.trim();
-            locationDropdown.classList.remove('show');
-          });
-        });
-      } else {
-        locationDropdown.classList.remove('show');
-      }
-    });
-    
-    // Close dropdown when clicking outside
-    document.addEventListener('click', (e) => {
-      if (e.target !== locationInput && e.target !== locationDropdown) {
-        locationDropdown.classList.remove('show');
-      }
-    });
-    
-    // Handle form submission
-    document.getElementById('predictionForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const location = selectedLocation || locationInput.value.toLowerCase();
-      const sqft = parseFloat(document.getElementById('sqft').value);
-      const bhk = parseInt(document.getElementById('bhk').value);
-      const bath = parseInt(document.getElementById('bath').value);
-      
-      if (!location || !sqft || !bhk || !bath) {
-        showError('Please fill all fields and select a valid location');
-        return;
-      }
-      
-      showLoading(true);
-      hideError();
-      
-      try {
-        const response = await fetch(`${API_BASE}/predict_home_price`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            location: location,
-            sqft: sqft,
-            bhk: bhk,
-            bath: bath
-          })
-        });
-        
-        const data = await response.json();
-        
-        if (response.ok) {
-          displayResult(data);
-        } else {
-          showError(data.error || 'Failed to predict price');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        showError('An error occurred. Please try again.');
-      } finally {
-        showLoading(false);
-      }
-    });
-    
-    function displayResult(data) {
-      const resultDiv = document.getElementById('result');
-      const resultValue = document.getElementById('resultValue');
-      const resultDetails = document.getElementById('resultDetails');
-      
-      resultValue.textContent = `₹ ${data.estimated_price.toLocaleString('en-IN')}`;
-      resultDetails.innerHTML = `
-        Location: ${data.location}<br>
-        Area: ${data.sqft.toLocaleString()} Sq Ft<br>
-        BHK: ${data.bhk}<br>
-        Bathrooms: ${data.bath}
-      `;
-      
-      resultDiv.classList.add('show');
-    }
-    
-    function showLoading(show) {
-      document.getElementById('loading').classList.toggle('show', show);
-    }
-    
-    function showError(message) {
-      const errorDiv = document.getElementById('error');
-      errorDiv.textContent = message;
-      errorDiv.classList.add('show');
-    }
-    
-    function hideError() {
-      document.getElementById('error').classList.remove('show');
-    }
-    
-    // Load locations when page loads
-    loadLocations();
-  </script>
+  if (val && filtered.length > 0) {
+    dropdown.innerHTML = filtered.map(l => `<div class="dropdown-item" onclick="selectLocation('${l}')">${l.charAt(0).toUpperCase() + l.slice(1)}</div>`).join('');
+    dropdown.classList.add('show');
+  } else {
+    dropdown.classList.remove('show');
+  }
+});
+
+document.addEventListener('click', (e) => {
+  if (e.target !== locationInput) {
+    dropdown.classList.remove('show');
+  }
+});
+
+function selectLocation(loc) {
+  selectedLocation = loc;
+  locationInput.value = loc.charAt(0).toUpperCase() + loc.slice(1);
+  dropdown.classList.remove('show');
+}
+
+function predictPrice(e) {
+  e.preventDefault();
+  
+  const loc = selectedLocation || locationInput.value.toLowerCase().trim();
+  const sqft = parseFloat(document.getElementById('sqft').value);
+  const bhk = parseInt(document.getElementById('bhk').value);
+  const bath = parseInt(document.getElementById('bath').value);
+  
+  if (!loc || !sqft || !bhk || !bath) {
+    showError('Please fill all fields');
+    return;
+  }
+  
+  const basePrice = (bhk * 300000) + (sqft * 5000);
+  let multiplier = 1.2;
+  
+  const premiumLocations = ['whitefield', 'indiranagar', 'koramangala', 'frazer town', 'benson town'];
+  if (premiumLocations.some(p => loc.includes(p))) multiplier = 1.5;
+  else if (loc.includes('anekal') || loc.includes('attibele')) multiplier = 0.8;
+  
+  const estimatedPrice = Math.round(basePrice * multiplier / 100000) / 10;
+  
+  document.getElementById('price').textContent = '₹ ' + estimatedPrice + ' Lakh';
+  document.getElementById('details').innerHTML = `Location: ${loc}<br>Area: ${sqft} Sq Ft<br>BHK: ${bhk}<br>Bathrooms: ${bath}`;
+  document.getElementById('result').classList.add('show');
+  document.getElementById('error').classList.remove('show');
+}
+
+function showError(msg) {
+  document.getElementById('error').textContent = msg;
+  document.getElementById('error').classList.add('show');
+}
+</script>
 </body>
 </html>
