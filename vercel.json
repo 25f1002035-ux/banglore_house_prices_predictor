@@ -1,18 +1,16 @@
 {
   "version": 2,
-  "buildCommand": "cd client && npm install && cd ../server && pip install -r requirements.txt",
   "publicDir": "client",
-  "routes": [
+  "buildCommand": "true",
+  "headers": [
     {
-      "src": "^/api/(.*)",
-      "dest": "/server/api/predict.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/client/app.html"
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
     }
-  ],
-  "env": {
-    "PYTHON_VERSION": "3.9"
-  }
+  ]
 }
