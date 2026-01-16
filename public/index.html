@@ -254,13 +254,12 @@
   </div>
   
   <script>
-    const API_BASE = '/api';    let allLocations = [];
-    let selectedLocation = '';
+    const API_BASE = 'http://127.0.0.1:5000';    let selectedLocation = '';
     
     // Load locations on page load
     async function loadLocations() {
       try {
-        const response = await fetch('/locations.json');
+        const response = await fetchfetch(`${API_BASE}/get_location_names`)n');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -347,7 +346,7 @@
       hideError();
       
       try {
-        const response = await fetch(`${API_BASE}/predict`, {
+        const response = await fetch(`${API_BASE}/predict_home_price`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
