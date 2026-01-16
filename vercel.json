@@ -1,4 +1,18 @@
 {
-  "buildCommand": "",
-  "outputDirectory": "public"
+  "version": 2,
+  "buildCommand": "cd client && npm install && cd ../server && pip install -r requirements.txt",
+  "publicDir": "client",
+  "routes": [
+    {
+      "src": "^/api/(.*)",
+      "dest": "/server/api/predict.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/client/app.html"
+    }
+  ],
+  "env": {
+    "PYTHON_VERSION": "3.9"
+  }
 }
