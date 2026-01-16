@@ -46,6 +46,7 @@
     
     .form-group {
       margin-bottom: 20px;
+      position: relative;
     }
     
     label {
@@ -69,6 +70,42 @@
     input:focus, select:focus {
       outline: none;
       border-color: #667eea;
+    }
+    
+    .dropdown-list {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: white;
+      border: 2px solid #667eea;
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+      max-height: 300px;
+      overflow-y: auto;
+      z-index: 1000;
+      display: none;
+      margin-top: -2px;
+    }
+    
+    .dropdown-list.show {
+      display: block;
+    }
+    
+    .dropdown-item {
+      padding: 10px 12px;
+      cursor: pointer;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 14px;
+    }
+    
+    .dropdown-item:hover {
+      background-color: #f5f5f5;
+    }
+    
+    .dropdown-item.selected {
+      background-color: #667eea;
+      color: white;
     }
     
     button {
@@ -167,9 +204,8 @@
     <form id="predictionForm">
       <div class="form-group">
         <label for="location">Location</label>
-        <select id="location" required>
-          <option value="">Select a location...</option>
-        </select>
+        <input type="text" id="location" placeholder="Search location..." autocomplete="off" required>
+        <div class="dropdown-list" id="locationDropdown"></div>
       </div>
       
       <div class="form-group">
@@ -219,6 +255,8 @@
   
   <script>
     const API_BASE = '/.netlify/functions';
+    let allLocations = [];
+    let selectedLocation = '';
     
     // Load locations on page load
     async function loadLocations() {
@@ -229,44 +267,83 @@
         }
         const data = await response.json();
         
-        // Log the response to help debug
         console.log('Locations response:', data);
         
-        // Ensure data.locations is an array
-        const locations = Array.isArray(data.locations) ? data.locations : [];
+        allLocations = Array.isArray(data.locations) ? data.locations : [];
         
-        if (locations.length === 0) {
+        if (allLocations.length === 0) {
           console.warn('No locations received from API');
           showError('No locations available');
           return;
         }
         
-        const locationSelect = document.getElementById('location');
-        locations.forEach(location => {
-          const option = document.createElement('option');
-          option.value = location.toLowerCase();
-          option.textContent = location;
-          locationSelect.appendChild(option);
-        });
-        
-        console.log(`Loaded ${locations.length} locations successfully`);
+        console.log(`Loaded ${allLocations.length} locations successfully`);
       } catch (error) {
         console.error('Error loading locations:', error);
         showError('Failed to load locations: ' + error.message);
       }
     }
     
+    // Location input autocomplete
+    const locationInput = document.getElementById('location');
+    const locationDropdown = document.getElementById('locationDropdown');
+    
+    locationInput.addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase().trim();
+      
+      if (searchTerm.length === 0) {
+        locationDropdown.classList.remove('show');
+        return;
+      }
+      
+      // Filter locations based on search term
+      const filteredLocations = allLocations.filter(loc =>
+        loc.toLowerCase().includes(searchTerm)
+      ).slice(0, 50); // Show max 50 results
+      
+      // Display dropdown
+      if (filteredLocations.length > 0) {
+        locationDropdown.innerHTML = filteredLocations
+          .map((loc, index) => `
+            <div class="dropdown-item" data-location="${loc}">
+              ${loc.charAt(0).toUpperCase() + loc.slice(1)}
+            </div>
+          `)
+          .join('');
+        
+        locationDropdown.classList.add('show');
+        
+        // Add click handlers
+        document.querySelectorAll('.dropdown-item').forEach(item => {
+          item.addEventListener('click', () => {
+            selectedLocation = item.dataset.location;
+            locationInput.value = item.textContent.trim();
+            locationDropdown.classList.remove('show');
+          });
+        });
+      } else {
+        locationDropdown.classList.remove('show');
+      }
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (e.target !== locationInput && e.target !== locationDropdown) {
+        locationDropdown.classList.remove('show');
+      }
+    });
+    
     // Handle form submission
     document.getElementById('predictionForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       
-      const location = document.getElementById('location').value;
+      const location = selectedLocation || locationInput.value.toLowerCase();
       const sqft = parseFloat(document.getElementById('sqft').value);
       const bhk = parseInt(document.getElementById('bhk').value);
       const bath = parseInt(document.getElementById('bath').value);
       
       if (!location || !sqft || !bhk || !bath) {
-        showError('Please fill all fields');
+        showError('Please fill all fields and select a valid location');
         return;
       }
       
