@@ -33,238 +33,35 @@ DEFAULT_LOCATIONS = [
     "Arcot Road Saidapet",
     "Ardee Village",
     "Arekere",
-    "Aris Village",
-    "Armane Nagar",
-    "Aromas",
-    "Aroville Sims",
-    "Artesia Garden",
-    "Artesia Gardens",
-    "Artesia Towers",
-    "Arthashastra Colony",
-    "Artisan Village",
-    "Aryan Nagar",
-    "Aryan Prastha",
-    "Aryan Villa",
-    "Aryankere",
-    "Aryanvir",
-    "As Rao Nagar",
-    "Ashrampura",
-    "Ashram Nagar",
-    "Ashrama Road",
-    "Ashripur",
-    "Ashwini Krupanidhi",
-    "Ashwini Nagar",
-    "Askot",
-    "Aslova",
-    "Aspen Tower",
-    "Aspen Woods",
-    "Assetz Precinct",
-    "Assetz Trinity",
-    "Assetz Woods",
-    "Athani",
-    "Athappilly",
-    "Atholem",
-    "Atlantis Towers",
-    "Atlas Elegance",
-    "Atriya Enclave",
-    "Att Halli",
-    "Attiguppe",
-    "Aurelian Towers",
-    "Aurum Essence",
-    "Aurum Galaxy",
-    "Aurum Orchid",
-    "Aurum Towers",
-    "Auspicious Residency",
-    "Austin Heights",
-    "Austin Town",
-    "Austrian Schrems",
-    "Autobac Road",
-    "Avalon",
-    "Avana Avanti",
-    "Avance Palm Meadows",
-    "Avantouch",
-    "Avaraj Lifestyle",
-    "Avasya Heights",
-    "Avathi",
-    "Avatar Aangan",
-    "Avatar Paradise",
-    "Avatar Royale",
-    "Avaya Tulip",
-    "Avenue Aranya",
-    "Avenue D Arena",
-    "Avenue Heights",
-    "Avenue Jade",
-    "Avenue Plaza",
-    "Avion Aravelli",
-    "Avis Meadows",
-    "Avonte",
-    "Avrion Elegance",
-    "Avyukta Gardens",
-    "Awaken",
-    "Awarpur",
-    "Awasya Towers",
-    "Awesome Enclave",
-    "Awestruck City",
-    "Axess Elite",
-    "Axion Residency",
-    "Axis Square",
-    "Aya Nagar",
-    "Ayantee",
-    "Ayappakkara",
-    "Ayatha",
-    "Ayatika Golden",
-    "Ayesha Palace",
-    "Ayodhya Nagar",
-    "Ayur Ville",
-    "Ayush Heights",
-    "Ayusha Enclave",
-    "Azad Nagar",
-    "Azadipur",
-    "Azan Plaza",
-    "Azari Apartments",
-    "Azimuth Towers",
-    "Azmeera Meadows",
-    "Azure Heights",
-    "Azure Towers",
-    "Azurepoint",
-    "Azureminds",
-    "Babura Basti",
-    "Bachelors Quarters",
-    "Badaravalli",
-    "Badashahi Gate",
-    "Badashehry Gate",
-    "Baderahalli",
-    "Badheri Lake",
-    "Badhni Kalan",
-    "Badhni Khurd",
-    "Badi Chhatri",
-    "Badlapur",
-    "Badrah",
-    "Badratti",
-    "Badruk",
-    "Badshah Layout",
-    "Badshahpur",
-    "Badulla Basti",
-    "Badulla Layout",
-    "Badulu Basti",
-    "Baduwala",
-    "Badval",
-    "Badwal",
-    "Badwala",
-    "Baeedu",
-    "Baekdu",
-    "Baelkunda",
-    "Baepalya",
-    "Baequara",
-    "Baequara Layout",
-    "Baetalli",
-    "Baeva",
-    "Baevara",
-    "Baevaria",
-    "Baevly",
-    "Baevoide",
-    "Baevosandra",
-    "Baevosandra Nagar",
-    "Bagapati Layout",
-    "Bagara",
-    "Bagari",
-    "Bagari Compound",
-    "Bagari Nagar",
-    "Bagarihalli",
-    "Bagarkeri",
-    "Bagarm",
-    "Bagarnadeshwari",
-    "Bagata",
-    "Bagavalli",
-    "Bagavati",
-    "Bagavati Layout",
-    "Bagavatipur",
-    "Bagavati Road",
-    "Bagavurta",
-    "Bagaza",
-    "Bagdarpalli",
-    "Bagdol",
-    "Bagdol Road",
-    "Bagdoli",
-    "Bagdolia",
-    "Bagdur",
-    "Bagdurga",
-    "Bagdurgapalli",
-    "Bagdurgapalli Layout",
-    "Bagdurgapalli Road",
-    "Bagdurgapalli Ward",
-    "Bagdurgapally",
-    "Bagdurgapnagar",
-    "Bagdurgapnagar Layout",
-    "Bagdurgapnagar Road",
-    "Bagdurga Palli",
-    "Bagdurga Palli Layout",
-    "Bagdurga Palli Road",
-    "Bagdurga Palli Ward",
-    "Bagdurgapuri",
-    "Bagdurgapuram",
-    "Bagdurgapuram Layout",
-    "Bagdurgapuram Road",
-    "Bagdurgapuram Ward",
-    "Bagdurgapuri Layout",
-    "Bagdurgapuri Road",
-    "Bagdurgapuri Ward",
-    "Bagdurgapuri Nagar",
-    "Bagdurgapuri Nagar Layout",
-    "Bagdurgapuri Nagar Road",
-    "Bagdurgapuri Nagar Ward",
-    "Bagdurgapalli Nagar",
-    "Bagdurgapalli Nagar Layout",
-    "Bagdurgapalli Nagar Road",
-    "Bagdurgapalli Nagar Ward",
-    "Bagdurgapuram Nagar",
-    "Bagdurgapuram Nagar Layout",
-    "Bagdurgapuram Nagar Road",
-    "Bagdurgapuram Nagar Ward",
+    "Aris Village"
 ]
 
 def handler(event, context):
     """Netlify Function to get available locations"""
-    
-    # Handle CORS preflight
-    if event['httpMethod'] == 'OPTIONS':
+    try:
+        # Start with default locations
+        locations = DEFAULT_LOCATIONS.copy()
+        
+        # Try to load from columns.json in model folder
+        columns_path = os.path.join(os.path.dirname(__file__), '..', '..', 'model', 'columns.json')
+        
+        if os.path.exists(columns_path):
+            try:
+                with open(columns_path, 'r') as f:
+                    data = json.load(f)
+                    columns = data.get('data_columns', [])
+                    # Extract locations from columns (skip first 3: sqft, bath, bhk)
+                    if columns and len(columns) > 3:
+                        locations = sorted([col.title() for col in columns[3:]])
+            except Exception as e:
+                print(f"Error loading columns.json: {e}")
+                # Use default locations on error
+        
         return {
             'statusCode': 200,
             'headers': {
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-                'Access-Control-Allow-Headers': 'Content-Type'
-            },
-            'body': json.dumps({'message': 'OK'})
-        }
-    
-    try:
-        locations = DEFAULT_LOCATIONS
-        
-        # Try to load from columns.json file if available (for updated locations)
-        columns_paths = [
-            os.path.join(os.path.dirname(__file__), '..', '..', 'server', 'artifacts', 'columns.json'),
-            '/var/task/server/artifacts/columns.json',
-            'server/artifacts/columns.json',
-        ]
-        
-        for path in columns_paths:
-            try:
-                if os.path.exists(path):
-                    with open(path, 'r') as f:
-                        data_columns = json.load(f)
-                        columns = data_columns.get('data_columns', [])
-                        if columns and len(columns) > 3:
-                            # Extract locations from columns[3:]
-                            locations = sorted([col.title() for col in columns[3:]])
-                            break
-            except Exception:
-                continue
-        
-        return {
-            'statusCode': 200,
-            'headers': {
-                'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json'
             },
             'body': json.dumps({
@@ -272,11 +69,13 @@ def handler(event, context):
                 'count': len(locations)
             })
         }
-    
     except Exception as e:
         return {
             'statusCode': 500,
-            'headers': {'Access-Control-Allow-Origin': '*'},
+            'headers': {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json'
+            },
             'body': json.dumps({
                 'error': f'Error loading locations: {str(e)}',
                 'locations': DEFAULT_LOCATIONS,
