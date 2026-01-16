@@ -17,18 +17,29 @@ def handler(event, context):
         }
     
     try:
-        # Load columns from model directory
-        # In Netlify, files are available at the root level during execution
-        columns_file = os.path.join(os.path.dirname(__file__), '..', '..', 'model', 'columns.json')
+        # Load columns from model directory with multiple path fallbacks
+        # Primary location is server/artifacts (matching util.py)
+        columns_paths = [
+            os.path.join(os.path.dirname(__file__), '..', '..', 'server', 'artifacts', 'columns.json'),
+            '/var/task/server/artifacts/columns.json',
+            'server/artifacts/columns.json',
+            os.path.join(os.path.dirname(__file__), '..', '..', 'model', 'columns.json'),
+            '/var/task/model/columns.json',
+            'model/columns.json'
+        ]
         
-        # If that doesn't work, try the absolute path used during build
-        if not os.path.exists(columns_file):
-            # Try from the build output directory
-            columns_file = '/var/task/model/columns.json'
+        columns_file = None
+        for path in columns_paths:
+            if os.path.exists(path):
+                columns_file = path
+                break
         
-        if not os.path.exists(columns_file):
-            # Try from current working directory
-            columns_file = 'model/columns.json'
+        if not columns_file:
+            return {
+                'statusCode': 404,
+                'headers': {'Access-Control-Allow-Origin': '*'},
+                'body': json.dumps({'error': f'Columns file not found. Tried: {columns_paths}'})
+            }
         
         with open(columns_file, 'r') as f:
             data_columns = json.load(f)
@@ -42,6 +53,7 @@ def handler(event, context):
             }
         
         # Extract locations (all columns except the first 3 which are sqft, bath, bhk)
+        # Locations are at indices 3 onwards
         locations = sorted([col.title() for col in columns[3:]])
         
         return {
@@ -62,9 +74,15 @@ def handler(event, context):
             'headers': {'Access-Control-Allow-Origin': '*'},
             'body': json.dumps({'error': f'File not found: {str(e)}'})
         }
+    except json.JSONDecodeError as e:
+        return {
+            'statusCode': 400,
+            'headers': {'Access-Control-Allow-Origin': '*'},
+            'body': json.dumps({'error': f'Invalid JSON in columns file: {str(e)}'})
+        }
     except Exception as e:
         return {
             'statusCode': 500,
             'headers': {'Access-Control-Allow-Origin': '*'},
-            'body': json.dumps({'error': f'Error: {str(e)}'})
+            'body': json.dumps({'error': f'Error loading locations: {str(e)}'})
         }
